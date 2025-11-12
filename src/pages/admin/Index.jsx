@@ -1,5 +1,5 @@
 import React from 'react'
-
+//paginas que se van a tenee admin
 const Admin = () => {
   return (
     <div>
