@@ -10,7 +10,8 @@ const PrivateLayout = () => {
     //con esta clase divido el sidebar de todos los private layout de admin clientes y vehiculos con sus rutas funcionando
     <div className="flex w-screen h-screen">
       <Sidebar/>
-      <main className='flex w-full  overflow-y-scroll'>
+      {/**en la clase principal admin vehiculos el formulario de vehiculos queda en columnas centrado para el espacio del formulario */}
+      <main className='flex w-full  overflow-y-scroll items-center justify-center'>
         <Outlet/>
       </main>
     </div>
