@@ -10,7 +10,7 @@ const PrivateLayout = () => {
     //con esta clase divido el sidebar de todos los private layout de admin clientes y vehiculos con sus rutas funcionando
     <div className="flex w-screen h-screen">
       <Sidebar/>
-      <main className='flex w-full bg-blue-400 overflow-y-scroll'>
+      <main className='flex w-full  overflow-y-scroll'>
         <Outlet/>
       </main>
     </div>

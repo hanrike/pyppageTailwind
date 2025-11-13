@@ -15,10 +15,11 @@ const Login = () => {
           />
           <input 
           className='appearance-none px-3 py-2 boder border-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:z-10 sm:text-sm '
-          type='password' required/>
+          type='password' 
+          required/>
         </div>
-        <div>
-          <div className='flex justify-between'>
+        <div className='flex justify-between'>
+          <div>
           {/**Siempre los labels deben estar asociados a un input darle un nombre al label es una buena practica
            * ayuda tambien al ceo y posicionamiento
           */}  
