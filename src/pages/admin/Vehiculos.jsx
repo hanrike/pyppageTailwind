@@ -17,7 +17,14 @@ const Vehiculos=()=>{
     //paso3 
     //paso etc
   },[]);
-    const enviarDatosAlBackend = (params) => {
+
+  useEffect(() => {
+    console.log('Esto es una funcion que se ejecuta cada que cambia el valor de nombre vehiculo')
+    console.log('El valor de la variable vehiculo es: ',nombreVehiculo)
+   },[nombreVehiculo])
+  
+
+    const enviarDatosAlBackend = () => { //de esta manera pongo al useEffect a escuchar una variable
       console.log('El valor de la variable nombre vehiculo es',nombreVehiculo)
     }
     
