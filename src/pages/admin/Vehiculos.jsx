@@ -16,18 +16,12 @@ const Vehiculos=()=>{
     //paso3 
     //paso etc
   },[]);
-   const cambioDeNombre = (e) => { //es una funcion que me permite cambiar los estados y los imputs cuando el ususario utiliza la pagina
-    console.log('nombre:',e.target.value)}//con console.log imprimo lo que el ususario ingresa en el nombre vehiculo del formulario
     
-   const cambioDeMarca = (e) => { //es una funcion que me permite cambiar los estados y los imputs cuando el ususario utiliza la pagina
-    console.log('marca:e',e.target.value)//con console.log imprimo lo que el ususario ingresa en el nombre vehiculo del formulario
-     
-  }
   return (
     <form className='flex flex-col'>
       <h2>Formulario para creacion de vehiculos</h2>
-      <input onChange={cambioDeNombre} type='text' placeholder='Nombre vehiculo'/> {/** el evento  onChange cada que el input cambie se puede ejecutar una funcion */}
-      <input onChange={cambioDeMarca} type='text' placeholder='Marca Vehiculo'/> {/** como se ve en el console.log los valores cambian cuando se ponen los inputs */}
+      <input onChange={(e)=>{console.log('nombre:',e.target.value)}} type='text' placeholder='Nombre vehiculo'/> {/** el evento  onChange cada que el input cambie se puede ejecutar una funcion */}
+      <input onChange={(e)=>{console.log('marca:',e.target.value)}} type='text' placeholder='Marca Vehiculo'/> {/** como se ve en el console.log los valores cambian cuando se ponen los inputs */}
       <input type='text' placeholder='Modelo vehiculo'/>
       <button className='bg-indigo-500 text-white'>Enviar Datos</button>
     </form>
