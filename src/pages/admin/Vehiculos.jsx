@@ -24,10 +24,10 @@ const Vehiculos=()=>{
    },[nombreVehiculo]); //pongo a escuchar la variable nombreVehiculo
 
    //useEffect que se ejecuta siempre no es recomendable porque como no tiene ninbguna dependencia se puede volver un ciclo infinito y generar algun error o copar el servidor haciendo un ciclo infinito
-   //rompiendo la página por completop
-   useEffect(() => {
-    console.log('Este es un useEffect que se ejecuta siempre que cambia una variable ')
-   }); 
+   //rompiendo la página por completo
+   //useEffect(() => {
+    //console.log('Este es un useEffect que se ejecuta siempre que cambia una variable ')
+   //}); se explica para saber que existe, no recomendable usarlo es como un ciclo while true se puede volver infinito
 
     const enviarDatosAlBackend = () => { //de esta manera pongo al useEffect a escuchar una variable
       console.log('El valor de la variable nombre vehiculo es',nombreVehiculo)
