@@ -21,20 +21,25 @@ const Vehiculos=()=>{
   useEffect(() => {
     console.log('Esto es una funcion que se ejecuta cada que cambia el valor de nombre vehiculo')
     console.log('El valor de la variable vehiculo es: ',nombreVehiculo)
-   },[nombreVehiculo])
-  
+   },[nombreVehiculo]); //pongo a escuchar la variable nombreVehiculo
+
+   //useEffect que se ejecuta siempre no es recomendable porque como no tiene ninbguna dependencia se puede volver un ciclo infinito y generar algun error o copar el servidor haciendo un ciclo infinito
+   //rompiendo la página por completop
+   useEffect(() => {
+    console.log('Este es un useEffect que se ejecuta siempre que cambia una variable ')
+   }); 
 
     const enviarDatosAlBackend = () => { //de esta manera pongo al useEffect a escuchar una variable
       console.log('El valor de la variable nombre vehiculo es',nombreVehiculo)
-    }
-    
-    
+    }   
   return (
     <form className='flex flex-col'>
       <h2>Formulario para creacion de vehiculos</h2>
       {/** onChange sirve para recibir el valor de un evento cualquieraque es lo que esta ingresando en el formulario */}
-      <input onChange={(e)=>{setNombreVehiculo (e.target.value)}} type='text' placeholder='Nombre vehiculo'/> {/** el evento  onChange cada que el input cambie se puede ejecutar una funcion */}
-      <input onChange={(e)=>{console.log('marca:',e.target.value)}} type='text' placeholder='Marca Vehiculo'/> {/** como se ve en el console.log los valores cambian cuando se ponen los inputs */}
+      <input onChange={(e)=>{setNombreVehiculo (e.target.value)}} 
+      type='text' placeholder='Nombre vehiculo'/> {/** el evento  onChange cada que el input cambie se puede ejecutar una funcion */}
+      <input onChange={(e)=>{console.log('marca:',e.target.value)}} 
+      type='text' placeholder='Marca Vehiculo'/> {/** como se ve en el console.log los valores cambian cuando se ponen los inputs */}
       <input type='text' placeholder='Modelo vehiculo'/>
       <button type='button' onClick={enviarDatosAlBackend} className='bg-indigo-500 text-white'>Enviar Datos</button> {/** onClick  para ejecutar una funcion o accion que quiero que se ejecute cunado hago click al boton*/}
     </form>
