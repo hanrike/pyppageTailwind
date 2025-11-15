@@ -3,47 +3,48 @@ import React,{useEffect,useState} from 'react';
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
 //funcion useState nos permite definir las variables que vamos a utilizar dentro de nustra funcion
 
+//EJERCICIO DE PRUEBA REALIZAR UN FORMULARIO QUE LE PIDA AL USUSARIO LA EDAD Y MUSTRE UN MENSAJE QUE LE DIGA SI ES MAYOR DE EDAD O NO EJMPLO RAPIDO DE UNA RENDERIZACION
 
 //aqui vienen las interactividades de la funcion useEffect
 const Vehiculos=()=>{
- //de esta manera llamo al useState una variable dentro de la aplicacion que esta constantemente cambiando eso es un estado
- const[nombreVehiculo,setNombreVehiculo]=useState(''); //el set es para poder cambiar el nombre de ese vehiculo es como en java setters y getters getter leer informacion de la variable 
-                                                        //seter cambiar informacion de la variable
-
-  useEffect(()=>{
-    console.log(
-      'Hola soy un use effect que se ejecuta solo una vez cuando la pagina se renderiza, porque tiene el array de dependencias vacio');
-    //paso2
-    //paso3 
-    //paso etc
-  },[]);
-
-  useEffect(() => {
-    console.log('Esto es una funcion que se ejecuta cada que cambia el valor de nombre vehiculo')
-    console.log('El valor de la variable vehiculo es: ',nombreVehiculo)
-   },[nombreVehiculo]); //pongo a escuchar la variable nombreVehiculo
-
-   //useEffect que se ejecuta siempre no es recomendable porque como no tiene ninbguna dependencia se puede volver un ciclo infinito y generar algun error o copar el servidor haciendo un ciclo infinito
-   //rompiendo la página por completo
-   //useEffect(() => {
-    //console.log('Este es un useEffect que se ejecuta siempre que cambia una variable ')
-   //}); se explica para saber que existe, no recomendable usarlo es como un ciclo while true se puede volver infinito
-
-    const enviarDatosAlBackend = () => { //de esta manera pongo al useEffect a escuchar una variable
-      console.log('El valor de la variable nombre vehiculo es',nombreVehiculo)
-    }   
+    const [edad,setEdad]=useState(0);
+    const [esMenorDeEdad,setEsMenorDeEdad]=useState(false) //para la renderizacion condicional se hace la funcion const useState y la inicializo en falso para que no aparezca inicialmente
+    const [mostrarCamposAdicionales,setMostrarCamposAdicionales]=useState(false)
+  useEffect(()=>{  //El useeFFECT ME SIRVE PARA HACER LOS CONTROLES Q yo necesite
+    if(edad>=18){ //si edad es mayor a 18 setEsMenorDeEdad(false) si no setEsMenorDeEdad(true)
+      setEsMenorDeEdad(false)
+      }else{
+      setEsMenorDeEdad(true)
+    }
+  },[edad])
+    
+     
   return (
     <form className='flex flex-col'>
       <h2>Formulario para creacion de vehiculos</h2>
-      {/** onChange sirve para recibir el valor de un evento cualquieraque es lo que esta ingresando en el formulario */}
-      <input onChange={(e)=>{setNombreVehiculo (e.target.value)}} 
-      type='text' placeholder='Nombre vehiculo'/> {/** el evento  onChange cada que el input cambie se puede ejecutar una funcion */}
-      <input onChange={(e)=>{console.log('marca:',e.target.value)}} 
-      type='text' placeholder='Marca Vehiculo'/> {/** como se ve en el console.log los valores cambian cuando se ponen los inputs */}
-      <input type='text' placeholder='Modelo vehiculo'/>
-      <button type='button' onClick={enviarDatosAlBackend} className='bg-indigo-500 text-white'>Enviar Datos</button> {/** onClick  para ejecutar una funcion o accion que quiero que se ejecute cunado hago click al boton*/}
+      <label htmlFor='edad'>
+      Por favor ingrese su edad
+      <input value={edad} onChange={(e)=>{setEdad(e.target.value)}} className='border-gray-600' name='edad' type='number'/>
+      </label>
+      {esMenorDeEdad ? ( //renderizacion condicional en react es: si es esMenorDeEdad (?)=es menor de edad y el else (:) si no no puede hacer pagos esta es la sintaxis
+        <span className='text-3xl text-red-500'>Usted es menor de edad no puede hacer pagos</span>
+      ):(
+        <span className='text-3xl text-green-500'>Usted es menor de edad no puede hacer pagos</span>
+      )} 
+      <button onClick={()=>setMostrarCamposAdicionales(!mostrarCamposAdicionales)} type='button' className='text-white bg-indigo-500'>
+        Mostrar campos adicionales
+      </button>
+      {mostrarCamposAdicionales && (
+        <div>
+          <input className='border bg-gray-400 my-2 p-3' placeholder='dato nuevo' type='text'/>
+          <input className='border bg-gray-400 my-2 p-3' placeholder='dato nuevo' type='text'/>
+          <input className='border bg-gray-400 my-2 p-3' placeholder='dato nuevo' type='text'/>
+          <input className='border bg-gray-400 my-2 p-3' placeholder='dato nuevo' type='text'/>
+          <input className='border bg-gray-400 my-2 p-3' placeholder='dato nuevo' type='text'/>
+        </div>
+      )}
     </form>
   )
 };
 
-export default Vehiculos
+export default Vehiculos;
