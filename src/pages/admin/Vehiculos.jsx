@@ -7,7 +7,7 @@ import React,{useEffect,useState} from 'react';
 //Lo que quiero es ir a rutas pero esta vez utilizando renderizacion condicional y no a traves del router dom como ya se vio
 const Vehiculos = () => {
   const[mostrarTabla,setMostrarTabla]=useState(true);
-  const[textoBoton,setTextoBoton]=useState('')
+  const[textoBoton,setTextoBoton]=useState('Crear nuevo Vehiculo')
  //creacion de useEffect con el fin de que el boton pueda cambiar tambien cuando se hace el evento click 
   useEffect(()=>{
     if (mostrarTabla){
@@ -40,8 +40,15 @@ const TablaVehiculos = () => {
 
 const FormularioCreacionVehiculos = () => {
   return(
-    <div>
-      Esto es un div pero deberia ser un formulario para creacion de un nuevo vehiculo
+    <div className='flex flex-col items-center justify-center'>
+      <h2 className='text-2xl font-extrabold text-gray-800'>Crear Nuevo Vehiculo</h2>
+      <form className='grid grid-cols-2'>
+        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" />
+        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'type="text" />
+        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'type="text" />
+        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'type="text" />
+        <button className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'>Guardar vehiculo</button>
+      </form>
     </div>
   )
 }
