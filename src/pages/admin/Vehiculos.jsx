@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{use, useEffect,useState} from 'react';
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
 //funcion useState nos permite definir las variables que vamos a utilizar dentro de nustra funcion
@@ -6,7 +6,7 @@ import React,{useEffect,useState} from 'react';
 
 //java siempre trabaja en formatos json voy a realizar una lista de vehiculos en este formato
 //Estamos suponiendo que esta es la informacion que nos va a entrar desde la base de datos
-const vehiculos=[
+const vehiculosBackend=[
   {
     nombre:'Corolla',
     marca:'Toyota',
@@ -37,12 +37,25 @@ const vehiculos=[
     marca:'Mazda',
     modelo:2020
   },
+  {
+    nombre:'Captiva',
+    marca:'Chevrolet',
+    modelo:2011
+  },
 ]
 
 //Lo que quiero es ir a rutas pero esta vez utilizando renderizacion condicional y no a traves del router dom como ya se vio
 const Vehiculos = () => {
   const[mostrarTabla,setMostrarTabla]=useState(true);
+  const[vehiculos,setVehiculos]=useState([]); //creamos un use state vacio para poder traer el backend
   const[textoBoton,setTextoBoton]=useState('Crear nuevo Vehiculo')
+
+  //cuando se trae base de datos del backen se hace un useEffect vacio
+  useEffect(()=>{
+    //obtener lista de vehiculos desde el backend
+    setVehiculos(vehiculosBackend)
+  },[])
+
  //creacion de useEffect con el fin de que el boton pueda cambiar tambien cuando se hace el evento click 
   useEffect(()=>{
     if (mostrarTabla){
@@ -63,13 +76,19 @@ const Vehiculos = () => {
         {textoBoton}
         </button> {/**de esta manera se puede ejecutar codigo javascript {textoBoton} */}{/**estilo tailwind del boton */}
         </div>
-      {mostrarTabla ? <TablaVehiculos/>:<FormularioCreacionVehiculos/> } {/**si mostrarTabla es verdadero entonces habilite  */}
+      {mostrarTabla ? (
+        <TablaVehiculos listaVehiculos={vehiculos}/>
+        ):(<FormularioCreacionVehiculos/>         
+        )} {/**si mostrarTabla es verdadero entonces habilite  */}
       {/**renderizacion para el componente de tabla vehiculos */}
     </div>
   )
 }
 
-const TablaVehiculos = () => {
+const TablaVehiculos = ({listaVehiculos}) => {
+  useEffect(()=>{
+      console.log('este es el listado de vehiculos en el componente de tabala',listaVehiculos); //lista vehiculos es un estado entonces se debe usar un useEffect
+    },[listaVehiculos])
   return(
     //vamos a crear la tabla que muestra los vehiculos
     //centro el titulo todos los vehiculos y le doy el estilo tailwind h2
@@ -85,21 +104,17 @@ const TablaVehiculos = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-            <td>Corolla</td>
-            <td>Toyota</td>
-            <td>2014</td>
-          </tr>
-        <tr>
-            <td>Sandero</td>
-            <td>Renault</td>
-            <td>2020</td>
-          </tr>
-        <tr>
-            <td>Duster</td>
-            <td>Renault</td>
-            <td>2014</td>
-          </tr>
+        {listaVehiculos.map((vehiculo)=>{
+          return(
+            <tr>
+              <td>{vehiculo.nombre}</td>
+              <td>{vehiculo.marca}</td>
+              <td>{vehiculo.modelo}</td>
+            </tr>
+          )
+        })} {/**este es un for en java para cada y voy a copiar al front lo que viene de mi base de datos simulada asi retorna un array de lo que necesito
+         * entro un array de tipo json y el meduelve un array de html esta funcion se llama .map
+         */} 
       </tbody>
     </table>
     </div>
