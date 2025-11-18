@@ -36,8 +36,37 @@ const Vehiculos = () => {
 
 const TablaVehiculos = () => {
   return(
-    <div>
-      Esto es un div pero deberia ser una tabla mostrando todos losd vehiculos
+    //vamos a crear la tabla que muestra los vehiculos
+    //centro el titulo todos los vehiculos y le doy el estilo tailwind h2
+    <div className='flex flex-col items-center justify-center' >
+      <h2 className='text-3xl font-extrabold text-gray-900'>Todos los Vehiculos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre del Vehiculo</th>
+          <th>Marca del Vehiculo</th>
+          <th>Modelo del Vehiculo</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>Corolla</td>
+            <td>Toyota</td>
+            <td>2014</td>
+          </tr>
+        <tr>
+            <td>Sandero</td>
+            <td>Renault</td>
+            <td>2020</td>
+          </tr>
+        <tr>
+            <td>Duster</td>
+            <td>Renault</td>
+            <td>2014</td>
+          </tr>
+      </tbody>
+    </table>
     </div>
   )
 }
