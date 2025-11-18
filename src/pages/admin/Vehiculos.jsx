@@ -17,13 +17,17 @@ const Vehiculos = () => {
     }
   },[mostrarTabla]);
   return(
-    <div>
-      <h2>Pagina de administracion de vehiculos</h2>
+    <div className='flex h-full w-full flex-col items-center justify-start p-8'>
+      <div className='flex flex-col'>  
+      <h2 className='text-3xl font-extrabold text-gray-900'>
+        Pagina de administracion de vehiculos</h2>
       {/**con el evento onClick logro que cuando hago click en el boton me muestre la funcion TablaVehiculos o la funcion FormularioCreacionVehiculos */}
       <button onClick={()=>{
         setMostrarTabla(!mostrarTabla)
-      }} className='text-white bg-indigo-500 p-5'>
-        {textoBoton}</button> {/**de esta manera se puede ejecutar codigo javascript {textoBoton} */}{/**estilo tailwind del boton */}
+      }} className='text-white bg-indigo-500 p-5 rounded-full m-6 w-28 self-end'>
+        {textoBoton}
+        </button> {/**de esta manera se puede ejecutar codigo javascript {textoBoton} */}{/**estilo tailwind del boton */}
+        </div>
       {mostrarTabla ? <TablaVehiculos/>:<FormularioCreacionVehiculos/> } {/**si mostrarTabla es verdadero entonces habilite  */}
       {/**renderizacion para el componente de tabla vehiculos */}
     </div>
