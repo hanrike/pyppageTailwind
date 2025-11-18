@@ -129,11 +129,42 @@ const FormularioCreacionVehiculos = () => {
   return(
     <div className='flex flex-col items-center justify-center'>
       <h2 className='text-2xl font-extrabold text-gray-800'>Crear Nuevo Vehiculo</h2>
+      {/**Formulario para la creacion de Vehiculos  */}
       <form className='grid grid-cols-2'>
-        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" />
-        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'type="text" />
-        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'type="text" />
-        <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'type="text" />
+        {/**Nombre vehiculo con opcion de texto para agrgar formulario  */}
+        <label htmlFor='nombre'>
+          Nombre del vehiculo
+        <input 
+        name='nombre'
+        className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+         type="text"
+         placeholder='Corolla' />
+        </label>
+        {/**marca vehiculo con opcion select para eleccion de marca  */}
+        <label htmlFor='marca'>
+          Marca del Vehiculo
+        <select 
+        className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+        name='marca'>
+          <option disabled>Seleccione una Opción</option>
+          <option>Renault</option>
+          <option>Toyota</option>
+          <option>Ford</option>
+          <option>Mazda</option>
+          <option>Chevrolet</option>
+        </select>
+        </label>
+        {/**modelo vehiculo con opcion tipo numero con valor maximo 2025 y minimo 2005  */}
+        <label htmlFor='modelo'>
+         Modelo del Vehiculo
+        <input 
+        name='modelo'
+        className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+         type="number"
+         min={2005}
+         max={2025}
+         placeholder='2014' />
+        </label>
         <button className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'>Guardar vehiculo</button>
       </form>
     </div>
@@ -142,3 +173,4 @@ const FormularioCreacionVehiculos = () => {
 
 
 export default Vehiculos;
+
