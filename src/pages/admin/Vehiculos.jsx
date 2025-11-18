@@ -49,7 +49,8 @@ const Vehiculos = () => {
   const[mostrarTabla,setMostrarTabla]=useState(true);
   const[vehiculos,setVehiculos]=useState([]); //creamos un use state vacio para poder traer el backend
   const[textoBoton,setTextoBoton]=useState('Crear nuevo Vehiculo')
-  const[colorBoton,setColorBoton]=useState('indigo')//quiero cambiar el color de los del botones cuando saque el formulario esto se llama clases
+  const[colorBoton,setColorBoton]=useState('bg-indigo-500')//quiero cambiar el color de los del botones cuando saque el formulario esto se llama clases pongo como verdadero bg-indigo
+                                                           //y si no no se cumple la condicion el color cambia rojo con el estilo llamado tailwind
 
   //cuando se trae base de datos del backen se hace un useEffect vacio
   useEffect(()=>{
@@ -61,10 +62,10 @@ const Vehiculos = () => {
   useEffect(()=>{
     if (mostrarTabla){
       setTextoBoton('Crear nuevo Vehiculo');
-      setColorBoton('indigo')
+      setColorBoton('bg-indigo-500')
     }else{
       setTextoBoton('Mostrar todos los vehiculos')
-      setColorBoton('red')
+      setColorBoton('bg-blue-500')
     }
   },[mostrarTabla]);
   return(
@@ -75,8 +76,8 @@ const Vehiculos = () => {
       {/**con el evento onClick logro que cuando hago click en el boton me muestre la funcion TablaVehiculos o la funcion FormularioCreacionVehiculos */}
       <button onClick={()=>{
         setMostrarTabla(!mostrarTabla)
-      }} className={'text-white bg-'+colorBoton+'-500 p-5 rounded-full m-6 w-28 self-end'}> {/**Aqui meti un java script forma no adecuada de hacerlo aunque funciona */}
-        {textoBoton} {/**Estoy cambiando el boton de color de forma rustica no apropiada esto se llama concatenacion de strings */}
+      }} className={`text-white ${colorBoton} p-5 rounded-full m-6 w-28 self-end`}> {/**Aqui meti un java script forma  adecuada de hacerlo aunque funciona */}
+        {textoBoton} {/**Estoy cambiando el boton de color de forma correcta apropiada esto se llama concatenacion de strings */}
         </button> {/**de esta manera se puede ejecutar codigo javascript {textoBoton} */}{/**estilo tailwind del boton */}
         </div>
       {mostrarTabla ? (
@@ -84,7 +85,7 @@ const Vehiculos = () => {
         ):(<FormularioCreacionVehiculos/>         
         )} {/**si mostrarTabla es verdadero entonces habilite  */}
       {/**renderizacion para el componente de tabla vehiculos */}
-    </div>
+    </div> 
   )
 }
 
