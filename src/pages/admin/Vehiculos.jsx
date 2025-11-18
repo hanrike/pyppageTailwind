@@ -4,6 +4,41 @@ import React,{useEffect,useState} from 'react';
 //funcion useState nos permite definir las variables que vamos a utilizar dentro de nustra funcion
 
 
+//java siempre trabaja en formatos json voy a realizar una lista de vehiculos en este formato
+//Estamos suponiendo que esta es la informacion que nos va a entrar desde la base de datos
+const vehiculos=[
+  {
+    nombre:'Corolla',
+    marca:'Toyota',
+    modelo:2014
+  },
+  {
+    nombre:'Sandero',
+    marca:'Reanault',
+    modelo:2020
+  },
+  {
+    nombre:'Corolla',
+    marca:'Toyota',
+    modelo:2014
+  },
+  {
+    nombre:'Rav4',
+    marca:'Toyota',
+    modelo:2021
+  },
+  {
+    nombre:'Fiesta',
+    marca:'Ford',
+    modelo:2017
+  },
+  {
+    nombre:'Mazda 3',
+    marca:'Mazda',
+    modelo:2020
+  },
+]
+
 //Lo que quiero es ir a rutas pero esta vez utilizando renderizacion condicional y no a traves del router dom como ya se vio
 const Vehiculos = () => {
   const[mostrarTabla,setMostrarTabla]=useState(true);
