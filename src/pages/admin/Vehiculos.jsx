@@ -129,7 +129,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
     </div>
   )
 }
-
+//aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
 const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla}) => {
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un nput con estados
   const [nombre,setNombre]=useState();
@@ -140,7 +140,7 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla}) => {
   const enviarAlBackend=()=>{
     console.log('nombre',nombre,'marca',marca,'modelo',modelo)
     toast.success('Vehiculo creado con exito')
-    funcionParaMostrarLaTabla(true)
+    funcionParaMostrarLaTabla(true) //aqui paso la funcion y le paso un true para que funcione
   }
   return(
     <div className='flex flex-col items-center justify-center'>
