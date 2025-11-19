@@ -81,9 +81,10 @@ const Vehiculos = () => {
         {textoBoton} {/**Estoy cambiando el boton de color de forma correcta apropiada esto se llama concatenacion de strings */}
         </button> {/**de esta manera se puede ejecutar codigo javascript {textoBoton} */}{/**estilo tailwind del boton */}
         </div>
+        {/**En esta variable mostrar tabla es donde se muestra la tabla o el vehiculo cuando hacemos el evento */}
       {mostrarTabla ? (
         <TablaVehiculos listaVehiculos={vehiculos}/>
-        ):(<FormularioCreacionVehiculos/>         
+        ):(<FormularioCreacionVehiculos funcionParaMostrarLaTabla={setMostrarTabla}/>// prop set mostrar tabla para que el hijo que es FormularioCreacionVehiculos se cambie con el set mostrar tabla     
         )} {/**si mostrarTabla es verdadero entonces habilite  */}{/**renderizacion para el componente de tabla vehiculos */}
         {/**De esta manera ya tenemos el contenedor con la funcion  */}
         <ToastContainer 
@@ -129,7 +130,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
   )
 }
 
-const FormularioCreacionVehiculos = () => {
+const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla}) => {
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un nput con estados
   const [nombre,setNombre]=useState();
   const [marca,setMarca]=useState();
@@ -139,6 +140,7 @@ const FormularioCreacionVehiculos = () => {
   const enviarAlBackend=()=>{
     console.log('nombre',nombre,'marca',marca,'modelo',modelo)
     toast.success('Vehiculo creado con exito')
+    funcionParaMostrarLaTabla(true)
   }
   return(
     <div className='flex flex-col items-center justify-center'>
