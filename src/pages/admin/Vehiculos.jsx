@@ -126,26 +126,47 @@ const TablaVehiculos = ({listaVehiculos}) => {
 }
 
 const FormularioCreacionVehiculos = () => {
+  //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un nput con estados
+  const [nombre,setNombre]=useState();
+  const [marca,setMarca]=useState();
+  const [modelo,setModelo]=useState();
+
+  //Creamos la funcion enviarAlBackend
+  const enviarAlBackend=()=>{
+    console.log('nombre',nombre,'marca',marca,'modelo',modelo)
+  }
   return(
     <div className='flex flex-col items-center justify-center'>
       <h2 className='text-2xl font-extrabold text-gray-800'>Crear Nuevo Vehiculo</h2>
-      {/**Formulario para la creacion de Vehiculos  */}
-      <form className='grid grid-cols-2'>
+      {/**Formulario para la creacion de Vehiculos el boton ejecuta una accion del formulario  los formularios tienen acciones que nos pueden redirigir a otras paginas*/}
+      <form className='flex flex-col'>
         {/**Nombre vehiculo con opcion de texto para agrgar formulario  */}
-        <label htmlFor='nombre'>
+        <label className='flex flex-col' htmlFor='nombre'>
           Nombre del vehiculo
         <input 
         name='nombre'
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
          type="text"
-         placeholder='Corolla' />
+         placeholder='Corolla'
+         //control de inputs para manejo del boton guardar vehiculo en este caso el nombre
+         //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
+         value={nombre}
+         onChange={(e)=>{
+          setNombre(e.target.value)
+         }} />
         </label>
         {/**marca vehiculo con opcion select para eleccion de marca  */}
-        <label htmlFor='marca'>
+        <label  className='flex flex-col' htmlFor='marca'>
           Marca del Vehiculo
-        <select 
+        <select
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
-        name='marca'>
+        name='marca'
+        //control de inputs para manejo del boton guardar vehiculo  en este caso la marca
+        //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
+         value={marca}
+         onChange={(e)=>{
+          setMarca(e.target.value)
+         }} >
           <option disabled>Seleccione una Opción</option>
           <option>Renault</option>
           <option>Toyota</option>
@@ -155,7 +176,7 @@ const FormularioCreacionVehiculos = () => {
         </select>
         </label>
         {/**modelo vehiculo con opcion tipo numero con valor maximo 2025 y minimo 2005  */}
-        <label htmlFor='modelo'>
+        <label className='flex flex-col' htmlFor='modelo'>
          Modelo del Vehiculo
         <input 
         name='modelo'
@@ -163,9 +184,23 @@ const FormularioCreacionVehiculos = () => {
          type="number"
          min={2005}
          max={2025}
-         placeholder='2014' />
+         placeholder='2014'
+          //control de inputs para manejo del boton guardar vehiculo en este caso el modelo 
+          //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
+         value={modelo}
+         onChange={(e)=>{
+          setModelo(e.target.value)
+         }} />
         </label>
-        <button className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'>Guardar vehiculo</button>
+        <button 
+        type='button'
+        className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
+        //cuando se le hace click al boton se utiliza onClick para ejecutar una funcion en este caso la funcion enviar al backend //
+        onClick={()=>{
+          enviarAlBackend() //dse esta manera por medio de la funcion enviar al backend a traves de la consola console.log estoy enviando toda la informacion enviar al backend debe ir () para que funcione
+        }}
+        >
+          Guardar vehiculo</button>
       </form>
     </div>
   )
