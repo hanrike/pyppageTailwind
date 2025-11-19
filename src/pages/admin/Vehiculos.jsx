@@ -1,4 +1,5 @@
-import React,{use, useEffect,useState} from 'react';
+import React, {use, useEffect,useState} from 'react';
+import { ToastContainer, toast } from 'react-toastify'; //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
 //funcion useState nos permite definir las variables que vamos a utilizar dentro de nustra funcion
@@ -83,8 +84,11 @@ const Vehiculos = () => {
       {mostrarTabla ? (
         <TablaVehiculos listaVehiculos={vehiculos}/>
         ):(<FormularioCreacionVehiculos/>         
-        )} {/**si mostrarTabla es verdadero entonces habilite  */}
-      {/**renderizacion para el componente de tabla vehiculos */}
+        )} {/**si mostrarTabla es verdadero entonces habilite  */}{/**renderizacion para el componente de tabla vehiculos */}
+        {/**De esta manera ya tenemos el contenedor con la funcion  */}
+        <ToastContainer 
+          position="bottom-center"
+          autoClose={5000}/> {/**se debe poner para que funcione la libreria y el modulo de mensajes con el comando o funcion toast se puede utilizar la herramienta  */}
     </div> 
   )
 }
@@ -134,6 +138,7 @@ const FormularioCreacionVehiculos = () => {
   //Creamos la funcion enviarAlBackend
   const enviarAlBackend=()=>{
     console.log('nombre',nombre,'marca',marca,'modelo',modelo)
+    toast.success('Vehiculo creado con exito')
   }
   return(
     <div className='flex flex-col items-center justify-center'>
@@ -197,7 +202,7 @@ const FormularioCreacionVehiculos = () => {
         className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
         //cuando se le hace click al boton se utiliza onClick para ejecutar una funcion en este caso la funcion enviar al backend //
         onClick={()=>{
-          enviarAlBackend() //dse esta manera por medio de la funcion enviar al backend a traves de la consola console.log estoy enviando toda la informacion enviar al backend debe ir () para que funcione
+          enviarAlBackend() //dse esta manera por medio de la funcion enviar al backend a traves de la consola console.log estoy enviando toda la informacion enviar al backend debe ir () para que
         }}
         >
           Guardar vehiculo</button>
