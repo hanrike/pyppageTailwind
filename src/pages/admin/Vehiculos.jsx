@@ -84,7 +84,10 @@ const Vehiculos = () => {
         {/**En esta variable mostrar tabla es donde se muestra la tabla o el vehiculo cuando hacemos el evento */}
       {mostrarTabla ? (
         <TablaVehiculos listaVehiculos={vehiculos}/>
-        ):(<FormularioCreacionVehiculos funcionParaMostrarLaTabla={setMostrarTabla}/>// prop set mostrar tabla para que el hijo que es FormularioCreacionVehiculos se cambie con el set mostrar tabla     
+        ):(<FormularioCreacionVehiculos 
+          funcionParaMostrarLaTabla={setMostrarTabla} 
+          listaVehiculos={vehiculos} // a esta lista de vehiculos le vamos a realizar un append como se hacia en python pero con estructura java script
+          funcionParaAgregarUnVehiculo={setVehiculos}/>// prop set mostrar tabla para que el hijo que es FormularioCreacionVehiculos se cambie con el set mostrar tabla     
         )} {/**si mostrarTabla es verdadero entonces habilite  */}{/**renderizacion para el componente de tabla vehiculos */}
         {/**De esta manera ya tenemos el contenedor con la funcion  */}
         <ToastContainer 
@@ -130,7 +133,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
   )
 }
 //aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
-const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla}) => {
+const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,funcionParaAgregarUnVehiculo}) => {
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un nput con estados
   const [nombre,setNombre]=useState();
   const [marca,setMarca]=useState();
@@ -141,6 +144,8 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla}) => {
     console.log('nombre',nombre,'marca',marca,'modelo',modelo)
     toast.success('Vehiculo creado con exito')
     funcionParaMostrarLaTabla(true) //aqui paso la funcion y le paso un true para que funcione
+    //asi se hace el append y se agraga los nuevos datos a la lista q se ve en el front del formulario con los vehiculos
+    funcionParaAgregarUnVehiculo([...listaVehiculos,{nombre:nombre,marca:marca,modelo:modelo}])//ejecuto el set de la lista completa y con ..., des pues de la coma pongo el dato q quiero agregar y lo de mas hacemos el append en java
   }
   return(
     <div className='flex flex-col items-center justify-center'>
