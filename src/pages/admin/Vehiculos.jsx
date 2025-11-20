@@ -136,7 +136,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
 const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,funcionParaAgregarUnVehiculo}) => {
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un input con estados
   const [nombre,setNombre]=useState(''); //deben ir '' las comillas ('') para que el condicional if funcione bien y tenga q poner toda la informacion en el formulario
-  const [marca,setMarca]=useState('');
+  const [marca,setMarca]=useState(''); //las comillas son los estados iniciale spara hacer la comparacion en el condicional if
   const [modelo,setModelo]=useState('');
 
   //Creamos la funcion enviarAlBackend
@@ -171,20 +171,24 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
          value={nombre}
          onChange={(e)=>{
           setNombre(e.target.value)
-         }} />
+         }}
+         required //funcion html para que tenga que requrir el dato si no no deja avanzar en ele formulario
+         />
         </label>
         {/**marca vehiculo con opcion select para eleccion de marca  */}
         <label  className='flex flex-col' htmlFor='marca'>
           Marca del Vehiculo
         <select
-        className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
-        name='marca'
+        value={marca}
+        onChange={(e)=>{
+         setMarca(e.target.value)
+        }} 
         //control de inputs para manejo del boton guardar vehiculo  en este caso la marca
         //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
-         value={marca}
-         onChange={(e)=>{
-          setMarca(e.target.value)
-         }} >
+        className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+        name='marca'
+        required //funcion html para que tenga que requrir el dato si no no deja avanzar
+         >
           <option disabled>Seleccione una Opción</option>
           <option>Renault</option>
           <option>Toyota</option>
@@ -208,10 +212,12 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
          value={modelo}
          onChange={(e)=>{
           setModelo(e.target.value)
-         }} />
+         }}
+         required //funcion html para que tenga que requrir el dato si no no deja avanzar en el formulario
+         />
         </label>
         <button 
-        type='button'
+        type='submit' //cambiando el type de boton a submit hago que con solo propiedades html se tenga que poner toda la informacion requerida y poniendo en cada uno de los labels e inputs 
         className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
         //cuando se le hace click al boton se utiliza onClick para ejecutar una funcion en este caso la funcion enviar al backend //
         onClick={()=>{
