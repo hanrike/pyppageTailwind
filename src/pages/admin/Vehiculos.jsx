@@ -138,26 +138,17 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
   const [nombre,setNombre]=useState(''); //deben ir '' las comillas ('') para que el condicional if funcione bien y tenga q poner toda la informacion en el formulario
   const [marca,setMarca]=useState(''); //las comillas son los estados iniciale spara hacer la comparacion en el condicional if
   const [modelo,setModelo]=useState('');
-
-  //Creamos la funcion enviarAlBackend
-  //La forma clasica para que el formulario quede bien y no deje meter infromacion erronea seria con un ciclo if en java script como se hace a contunuacion
-  const enviarAlBackend=()=>{
-    console.log('nombre',nombre,'marca',marca,'modelo',modelo)
-    if (nombre==='' || marca==='' || modelo==='' ){
-      toast.error('Ingrese todas las informaciones')
-
-    }else{
-      funcionParaMostrarLaTabla(true) //aqui paso la funcion y le paso un true para que funcione
-      //asi se hace el append y se agraga los nuevos datos a la lista q se ve en el front del formulario con los vehiculos
-      funcionParaAgregarUnVehiculo([...listaVehiculos,{nombre:nombre,marca:marca,modelo:modelo}])//ejecuto el set de la lista completa y con ..., des pues de la coma pongo el dato q quiero agregar y lo de mas hacemos el append en java
-
-    }
+//la (e) quiere decir q le entra un evento a la funcion forma recomendada de trabajar con formularios 
+  const submitForm=(e)=>{
+    e.preventDefault(); //con esto se controlan los inputs y con el onSubmit en el formulkario
+    console.log('datos del form enviados')
   }
   return(
     <div className='flex flex-col items-center justify-center'>
       <h2 className='text-2xl font-extrabold text-gray-800'>Crear Nuevo Vehiculo</h2>
       {/**Formulario para la creacion de Vehiculos el boton ejecuta una accion del formulario  los formularios tienen acciones que nos pueden redirigir a otras paginas*/}
-      <form className='flex flex-col'>
+      {/**el evento onSubmit me permite ejecutar una funcion que hace que se sepa cuando se le aplica submit al formulario*/}
+      <form onSubmit={submitForm} className='flex flex-col'> 
         {/**Nombre vehiculo con opcion de texto para agrgar formulario  */}
         <label className='flex flex-col' htmlFor='nombre'>
           Nombre del vehiculo
@@ -219,10 +210,6 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
         <button 
         type='submit' //cambiando el type de boton a submit hago que con solo propiedades html se tenga que poner toda la informacion requerida y poniendo en cada uno de los labels e inputs 
         className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
-        //cuando se le hace click al boton se utiliza onClick para ejecutar una funcion en este caso la funcion enviar al backend //
-        onClick={()=>{
-          enviarAlBackend() //dse esta manera por medio de la funcion enviar al backend a traves de la consola console.log estoy enviando toda la informacion enviar al backend debe ir () para que
-        }}
         >
           Guardar vehiculo</button>
       </form>
