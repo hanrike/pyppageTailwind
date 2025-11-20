@@ -134,18 +134,24 @@ const TablaVehiculos = ({listaVehiculos}) => {
 }
 //aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
 const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,funcionParaAgregarUnVehiculo}) => {
-  //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un nput con estados
-  const [nombre,setNombre]=useState();
-  const [marca,setMarca]=useState();
-  const [modelo,setModelo]=useState();
+  //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un input con estados
+  const [nombre,setNombre]=useState(''); //deben ir '' las comillas ('') para que el condicional if funcione bien y tenga q poner toda la informacion en el formulario
+  const [marca,setMarca]=useState('');
+  const [modelo,setModelo]=useState('');
 
   //Creamos la funcion enviarAlBackend
+  //La forma clasica para que el formulario quede bien y no deje meter infromacion erronea seria con un ciclo if en java script como se hace a contunuacion
   const enviarAlBackend=()=>{
     console.log('nombre',nombre,'marca',marca,'modelo',modelo)
-    toast.success('Vehiculo creado con exito')
-    funcionParaMostrarLaTabla(true) //aqui paso la funcion y le paso un true para que funcione
-    //asi se hace el append y se agraga los nuevos datos a la lista q se ve en el front del formulario con los vehiculos
-    funcionParaAgregarUnVehiculo([...listaVehiculos,{nombre:nombre,marca:marca,modelo:modelo}])//ejecuto el set de la lista completa y con ..., des pues de la coma pongo el dato q quiero agregar y lo de mas hacemos el append en java
+    if (nombre==='' || marca==='' || modelo==='' ){
+      toast.error('Ingrese todas las informaciones')
+
+    }else{
+      funcionParaMostrarLaTabla(true) //aqui paso la funcion y le paso un true para que funcione
+      //asi se hace el append y se agraga los nuevos datos a la lista q se ve en el front del formulario con los vehiculos
+      funcionParaAgregarUnVehiculo([...listaVehiculos,{nombre:nombre,marca:marca,modelo:modelo}])//ejecuto el set de la lista completa y con ..., des pues de la coma pongo el dato q quiero agregar y lo de mas hacemos el append en java
+
+    }
   }
   return(
     <div className='flex flex-col items-center justify-center'>
