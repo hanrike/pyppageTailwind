@@ -1,4 +1,4 @@
-import React, {use, useEffect,useState} from 'react';
+import React, {use, useEffect,useState,useRef} from 'react';// el useRef se utiliza para poder utilizr codigo html en javscript para utilizar codigo como referencia 
 import { ToastContainer, toast } from 'react-toastify'; //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
@@ -134,21 +134,26 @@ const TablaVehiculos = ({listaVehiculos}) => {
 }
 //aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
 const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,funcionParaAgregarUnVehiculo}) => {
+  const form=useRef(null) //este es const o funcion para uso de useRef el null es para q no pponga ningun parametro al principioo
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un input con estados
-  const [nombre,setNombre]=useState(''); //deben ir '' las comillas ('') para que el condicional if funcione bien y tenga q poner toda la informacion en el formulario
-  const [marca,setMarca]=useState(''); //las comillas son los estados iniciale spara hacer la comparacion en el condicional if
-  const [modelo,setModelo]=useState('');
 //la (e) quiere decir q le entra un evento a la funcion forma recomendada de trabajar con formularios 
   const submitForm=(e)=>{
     e.preventDefault(); //con esto se controlan los inputs y con el onSubmit en el formulkario
-    console.log('datos del form enviados')
+    const fd=new FormData(form.current) //debo hacerlo de esta manera con la funcion para que trabaje FormData con esto se evita tener un estado para cada input se puede omitir
+
+    //creo la nueva funcion donde quedaran almacenados los datos
+    const nuevoVehiculo={} //aqui queda mi array vacio listo para almacenar datos
+    fd.forEach((value,key)=>{ //en el forEach esta el valor y elemento 
+      nuevoVehiculo[key]=value
+     })
+    console.log('datos del form enviados',nuevoVehiculo)  //funcion formData nos deja construir un set de llave valor que vengan de un campo de un formulario y sus valores
   }
   return(
     <div className='flex flex-col items-center justify-center'>
       <h2 className='text-2xl font-extrabold text-gray-800'>Crear Nuevo Vehiculo</h2>
       {/**Formulario para la creacion de Vehiculos el boton ejecuta una accion del formulario  los formularios tienen acciones que nos pueden redirigir a otras paginas*/}
       {/**el evento onSubmit me permite ejecutar una funcion que hace que se sepa cuando se le aplica submit al formulario*/}
-      <form onSubmit={submitForm} className='flex flex-col'> 
+      <form ref={form} onSubmit={submitForm} className='flex flex-col'> 
         {/**Nombre vehiculo con opcion de texto para agrgar formulario  */}
         <label className='flex flex-col' htmlFor='nombre'>
           Nombre del vehiculo
@@ -157,12 +162,6 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
          type="text"
          placeholder='Corolla'
-         //control de inputs para manejo del boton guardar vehiculo en este caso el nombre
-         //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
-         value={nombre}
-         onChange={(e)=>{
-          setNombre(e.target.value)
-         }}
          required //funcion html para que tenga que requrir el dato si no no deja avanzar en ele formulario
          />
         </label>
@@ -170,12 +169,6 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
         <label  className='flex flex-col' htmlFor='marca'>
           Marca del Vehiculo
         <select
-        value={marca}
-        onChange={(e)=>{
-         setMarca(e.target.value)
-        }} 
-        //control de inputs para manejo del boton guardar vehiculo  en este caso la marca
-        //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
         name='marca'
         required //funcion html para que tenga que requrir el dato si no no deja avanzar
@@ -198,12 +191,6 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
          min={2005}
          max={2025}
          placeholder='2014'
-          //control de inputs para manejo del boton guardar vehiculo en este caso el modelo 
-          //cada uno de los inputs tiene su propio estado, a los inputs se le puso un estado asociado
-         value={modelo}
-         onChange={(e)=>{
-          setModelo(e.target.value)
-         }}
          required //funcion html para que tenga que requrir el dato si no no deja avanzar en el formulario
          />
         </label>
