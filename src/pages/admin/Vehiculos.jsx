@@ -149,10 +149,10 @@ const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculo
      })
      setMostrarTabla(true)
      //identificar el caso de exito y mostrar un toast de exito aqui es donde se deberia estar guardando en la base de datos
-     setVehiculos([...listaVehiculos,nuevoVehiculo])
+     setVehiculos([...listaVehiculos,nuevoVehiculo])//toast de error
      toast.success('Vehiculo agrgado con exito')
      //aqui se deberia hacer el toast de error e identifucar el caso de error
-     //toast.error('Error creando un vehiculo')
+     //toast.error('Error creando un vehiculo')////
   };
   
   return(
