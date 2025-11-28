@@ -85,9 +85,9 @@ const Vehiculos = () => {
       {mostrarTabla ? (
         <TablaVehiculos listaVehiculos={vehiculos}/>
         ):(<FormularioCreacionVehiculos 
-          funcionParaMostrarLaTabla={setMostrarTabla} 
+          setMostrarTabla={setMostrarTabla} 
           listaVehiculos={vehiculos} // a esta lista de vehiculos le vamos a realizar un append como se hacia en python pero con estructura java script
-          funcionParaAgregarUnVehiculo={setVehiculos}/>// prop set mostrar tabla para que el hijo que es FormularioCreacionVehiculos se cambie con el set mostrar tabla     
+          setVehiculos={setVehiculos}/>// prop set mostrar tabla para que el hijo que es FormularioCreacionVehiculos se cambie con el set mostrar tabla     
         )} {/**si mostrarTabla es verdadero entonces habilite  */}{/**renderizacion para el componente de tabla vehiculos */}
         {/**De esta manera ya tenemos el contenedor con la funcion  */}
         <ToastContainer 
@@ -133,7 +133,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
   )
 }
 //aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
-const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,funcionParaAgregarUnVehiculo}) => {
+const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculos}) => {
   const form=useRef(null) //este es const o funcion para uso de useRef el null es para q no pponga ningun parametro al principioo
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un input con estados
 //la (e) quiere decir q le entra un evento a la funcion forma recomendada de trabajar con formularios 
@@ -142,11 +142,14 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
     const fd=new FormData(form.current) //debo hacerlo de esta manera con la funcion para que trabaje FormData con esto se evita tener un estado para cada input se puede omitir
 
     //creo la nueva funcion donde quedaran almacenados los datos
-    const nuevoVehiculo={} //aqui queda mi array vacio listo para almacenar datos
+    const nuevoVehiculo={} //aqui queda mi array vacio listo para almacenar datos, se cre una nueva variable nuevoVehiculo y se inicializo como un objeto vacio
+                            //nuevoVehiculo en el key que me sta trayendo este forEach igual al value que me esta trayendo el forEach
     fd.forEach((value,key)=>{ //en el forEach esta el valor y elemento 
-      nuevoVehiculo[key]=value
+      nuevoVehiculo[key]=value //para cada elemento que se inicializo como un objeto vacio cons nuevoVehicuolo
      })
-    console.log('datos del form enviados',nuevoVehiculo)  //funcion formData nos deja construir un set de llave valor que vengan de un campo de un formulario y sus valores
+     setMostrarTabla(true)
+     toast.success('Vehiculo agrgado con exito')
+     setVehiculos([...listaVehiculos,nuevoVehiculo])
   }
   return(
     <div className='flex flex-col items-center justify-center'>
@@ -172,8 +175,9 @@ const FormularioCreacionVehiculos = ({funcionParaMostrarLaTabla,listaVehiculos,f
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
         name='marca'
         required //funcion html para que tenga que requrir el dato si no no deja avanzar
+        defaultValue={0} //con el fin de que inicialice la marca vehiculo sin valores iniciales quemadops
          >
-          <option disabled>Seleccione una Opción</option>
+          <option disabled value={0}>Seleccione una Opción</option>
           <option>Renault</option>
           <option>Toyota</option>
           <option>Ford</option>
