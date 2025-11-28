@@ -148,9 +148,13 @@ const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculo
       nuevoVehiculo[key]=value //para cada elemento que se inicializo como un objeto vacio cons nuevoVehicuolo
      })
      setMostrarTabla(true)
-     toast.success('Vehiculo agrgado con exito')
+     //identificar el caso de exito y mostrar un toast de exito aqui es donde se deberia estar guardando en la base de datos
      setVehiculos([...listaVehiculos,nuevoVehiculo])
-  }
+     toast.success('Vehiculo agrgado con exito')
+     //aqui se deberia hacer el toast de error e identifucar el caso de error
+     //toast.error('Error creando un vehiculo')
+  };
+  
   return(
     <div className='flex flex-col items-center justify-center'>
       <h2 className='text-2xl font-extrabold text-gray-800'>Crear Nuevo Vehiculo</h2>
