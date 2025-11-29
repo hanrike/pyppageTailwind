@@ -2,10 +2,11 @@
 import { useDarkMode } from '../context/darkMode';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import TriggerDarkMode from './TriggerDarkMode';
 // el import link es para que el boton cuando se le hace click me lleve a la pagina de login
 const Navbar = () => {
   //se debe definnir el setDarkMode
-  const {setDarkMode}=useDarkMode()
+  const {darkMode,setDarkMode}=useDarkMode()
   return (
     <nav className='bg-red-400'>
       <ul className='flex  w-full justify-between my-3'>
@@ -13,7 +14,16 @@ const Navbar = () => {
         <li>Navegacion1</li>
         <li>Navegacion2</li>
         <li>
-          <button onClick={()=>{setDarkMode(true)}}>Activar Modo Dark</button>{/**cuando hago el evento onClick y pongo en consola aparece fales apenas hago click cambia el estado */}
+          <TriggerDarkMode/>
+        </li>
+        <li>
+          <button
+           onClick={()=>{
+            setDarkMode(!darkMode)
+            }}
+            >
+              {darkMode ? 'Desactivar':'Activar'} Modo Dark
+          </button>{/**cuando hago el evento onClick y pongo en consola aparece fales apenas hago click cambia el estado */}
         </li>
         <li className='px-3'>
           {/**el import link es para que el boton cuando se le hace click ainiciar sesion me lleve a la pagina de login */}
