@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import pyp from '../media/pyp.png'
+import ImagenLogo from '../components/ImagenLogo'
+
 
 
 // Asume que tienes tu logo importado o una url
@@ -21,15 +22,11 @@ const AuthLayout = () => {
 
       {/* Contenedor de la tarjeta central */}
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+        <ImagenLogo/> {/* De esta manera agregamos el logo que viene desde el componente ImagenLogo asi no es necesario poner en cada uno el logo */}
         
         {/* Sección del Logo y Título */}
         <div className="text-center">
             {/* Reemplaza src con tu variable de imagen real */}
-            <img 
-              className="mx-auto h-24 w-auto" 
-              src={pyp} 
-              alt="Logo Empresa" 
-            />
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
               Concesionario Multimarca
             </h2>
