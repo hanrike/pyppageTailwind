@@ -3,19 +3,23 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import ImagenLogo from '../components/ImagenLogo'
 import { Projector,ChartSpline,Users,User } from 'lucide-react';
+import '../styles/responsive.css'
 
 
 
 const Sidebar = () => {
   return (
-  <nav className='w-72 border border-gray-300 h-full flex flex-col  bg-gray-400 p-4'>
+  <nav className=' w-72 border border-gray-300 h-full flex flex-col  bg-gray-400 p-4 sidebar'>
     <Link to='/admin'>
       <ImagenLogo/>
     </Link>
+    {/* queremos separar las rutas de la imagen y del cerrar sesion por eso vienen en el div */}
+    <div className=''>
       <Ruta icono={<User/>} ruta='/admin/perfil'nombre='Perfil' />
       <Ruta icono={<Projector/>} ruta='/admin/vehiculos'nombre='vehiculos' />
       <Ruta icono={<ChartSpline/>} ruta='/admin/ventas'nombre='Ventas' />
       <Ruta icono={<Users/>} ruta='/admin/usuarios'nombre='Usuarios' />
+    </div>
     <button>Cerrar Sesion </button>
   </nav>
   )
