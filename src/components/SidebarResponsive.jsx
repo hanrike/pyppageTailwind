@@ -18,6 +18,12 @@ const SidebarResponsive = () => {
         ):(
             <ArrowDownNarrowWide size={30}/>
         )}
+        {mostrarNavegacion && 
+        <ul>
+            <li>usuarios</li>
+            <li>graficos</li>
+            <li>estadisticas</li>
+        </ul>}
     </div>    
   )
 }
