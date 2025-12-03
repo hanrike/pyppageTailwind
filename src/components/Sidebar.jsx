@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import ImagenLogo from '../components/ImagenLogo'
-import { Projector } from 'lucide-react';
+import { Projector,ChartSpline,Users,User } from 'lucide-react';
 
 
 
@@ -12,26 +12,27 @@ const Sidebar = () => {
     <Link to='/admin'>
       <ImagenLogo/>
     </Link>
-    <button>Perfil</button>
-      <Ruta/> {/* pongo la ruta aqui con el componente que cree llamado tuta  */}
-      <Ruta/>
-      <Ruta/>
-    <button>Admnistracion de Vehiculos</button>
-    <button>Admnistracion de Vehiculos</button>
+      <Ruta icono={<User/>} ruta='/admin/perfil'nombre='Perfil' />
+      <Ruta icono={<Projector/>} ruta='/admin/vehiculos'nombre='vehiculos' />
+      <Ruta icono={<ChartSpline/>} ruta='/admin/ventas'nombre='Ventas' />
+      <Ruta icono={<Users/>} ruta='/admin/usuarios'nombre='Usuarios' />
     <button>Cerrar Sesion </button>
   </nav>
   )
 };
 
 //voy a crear un componente para los botones del sidebar 
-const Ruta = () => {
+//le estoy pasando icono,ruta,nombre como props 
+const Ruta = ({icono,ruta,nombre}) => {
   return(
-    <Link to='/admin/vehiculos'>{/* Importando este link ya tengo navegabilidad en mi boton en este caso voy a daminiustracion de vehiculos */}
-    < button className='p1 bg-indigo-700 hover:bg-indigo-900 flex w-full items-center text-white rounded-md'>
-    <Projector size={20} className="text-white w-10" />
-      Vehiculos
+    <Link to={ruta} className='w-full'>{/* Importando este link ya tengo navegabilidad en mi boton en este caso voy a daminiustracion de vehiculos */}
+    < button className='p1 my-2 bg-indigo-700 hover:bg-indigo-900 flex w-full items-center justify-center gap-2 text-white rounded-md'>
+    {/* CORRECTO: Renderizamos el componente directamente se renderiza directamente */}
+        {icono} 
+    {/* Renderizamos el nombre */}
+      <span>{nombre}</span>
     </button>
-    </Link>
+    </Link>  
   )
 }
 
