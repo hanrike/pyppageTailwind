@@ -2,15 +2,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import ImagenLogo from '../components/ImagenLogo'
-import { Projector,ChartSpline,Users,User } from 'lucide-react';
+import { Projector,ChartSpline,Users,User,ArrowDownNarrowWide } from 'lucide-react';
 
 
 
 
 const Sidebar = () => {
   return (
-    //lo bueno de tailwind es q viene listo para mobile responsive y la clase hideen permite que si es un cel pequeño no salga el sidebar solo si es pantalla mediana
-  <nav className='hidden md:flex md:w-72 border border-gray-300 h-full flex flex-col  bg-gray-400 p-4 sidebar'>
+  <div>
+    {/*//lo bueno de tailwind es q viene listo para mobile responsive y la clase hideen permite que si es un cel pequeño no salga el sidebar solo si es pantalla mediana*/}
+    <nav className='hidden md:flex md:w-72 border border-gray-300 h-full flex flex-col  bg-gray-400 p-4 sidebar'>
     <Link to='/admin'>
       <ImagenLogo/>
     </Link>
@@ -22,7 +23,11 @@ const Sidebar = () => {
       <Ruta icono={<Users/>} ruta='/admin/usuarios'nombre='Usuarios' />
     </div>
     <button>Cerrar Sesion </button>
-  </nav>
+    </nav>
+    <div>
+      {<ArrowDownNarrowWide/>}
+    </div>
+  </div>
   )
 };
 
