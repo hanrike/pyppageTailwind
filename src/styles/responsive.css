@@ -1,8 +1,0 @@
-/* casos generales para manejar el responsive de la paginas en este caso el tamaño maximo de pantalla es 600 */
-/* Este display none hace que hasta 600 pixeles no se muestre el sidebar a partir de alli se muestra */
-
-@media(max-width:600px){
-    .sidebar{
-        display: none;
-    }
-}

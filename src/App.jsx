@@ -11,7 +11,6 @@ import Vehiculos from './pages/admin/Vehiculos';
 import { BrowserRouter as Router,Routes,Route,Link } from 'react-router-dom';
 import './styles/styles.css'
 import { DarkModeContext } from './context/darkMode';
-import './styles/responsive.css'
 //importamos para poder usar los context de react
 
 
