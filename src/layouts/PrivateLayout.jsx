@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import React from 'react'
 import Sidebar from "../components/Sidebar";
+import SidebarResponsive from "../components/SidebarResponsive";
+
 
 
 const PrivateLayout = () => {
@@ -9,8 +11,9 @@ const PrivateLayout = () => {
   return (
     //con esta clase divido el sidebar de todos los private layout de admin clientes y vehiculos con sus rutas funcionando
     <div className="flex w-screen h-screen">
-      <div className="flex flex-nowrap h-full w-full">
+      <div className="flex flex-col md:flex-row flex-nowrap h-full w-full">
       <Sidebar/>
+      <SidebarResponsive/>
       {/**en la clase principal admin vehiculos el formulario de vehiculos queda en columnas centrado para el espacio del formulario */}
       <main className='flex w-full  overflow-y-scroll items-center justify-center'>
         <Outlet/>
