@@ -6,11 +6,11 @@ import { Projector,ChartSpline,Users,User,ArrowDownNarrowWide } from 'lucide-rea
 
 
 
-
+//si cambio al principio md por sm es para que se pueda ver el sidebar en tabletas cuando es md solo se ve en pantallas dse pec o mayor a 600px
 const Sidebar = () => {
   return (
     
-    <nav className='hidden md:flex md:w-72 border border-gray-300 h-full flex flex-col  bg-gray-400 p-4 sidebar'>
+    <nav className='hidden sm:flex md:w-72 border border-gray-300 h-full flex flex-col  bg-gray-400 p-4 sidebar'>
     <Link to='/admin'>
       <ImagenLogo/>
     </Link>
