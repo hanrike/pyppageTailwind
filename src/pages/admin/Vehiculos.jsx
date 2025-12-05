@@ -1,8 +1,11 @@
 import React, {use, useEffect,useState,useRef} from 'react';// el useRef se utiliza para poder utilizr codigo html en javscript para utilizar codigo como referencia 
-import { ToastContainer, toast } from 'react-toastify'; //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+ //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
 //funcion useState nos permite definir las variables que vamos a utilizar dentro de nustra funcion
+
 
 
 //java siempre trabaja en formatos json voy a realizar una lista de vehiculos en este formato
@@ -55,11 +58,27 @@ const Vehiculos = () => {
 
   //cuando se trae base de datos del backen se hace un useEffect vacio
   useEffect(()=>{
-    //obtener lista de vehiculos desde el backend
-    setVehiculos(vehiculosBackend)
-  },[])
+    const ObtenerVehiculos=async()=>{
+       const options={
+  method:'GET',
+  url:'https://vast-waters-45728.herokuapp.com/vehicle/',
+}
+    await axios //aqui estoy ya haciendo parte del backend y requiero que mi funcion sea asincrona por eso el await
+        .request(options)
+        .then(function(response){
+          //console.log(response.data)
+          setVehiculos(response.data)
+        })
+        .catch(function(error){
+          console.error(error)
+        })
+      }
+    if (mostrarTabla){
+      ObtenerVehiculos()
+    }
+      },[mostrarTabla])
 
- //creacion de useEffect con el fin de que el boton pueda cambiar tambien cuando se hace el evento click 
+//creacion de useEffect con el fin de que el boton pueda cambiar tambien cuando se hace el evento click 
   useEffect(()=>{
     if (mostrarTabla){
       setTextoBoton('Crear nuevo Vehiculo');
@@ -96,7 +115,7 @@ const Vehiculos = () => {
     </div> 
   )
 }
-
+//aqui necesitamos traer la base de dsatos de la tabla vehiculos leer esa informacion la TablaVehiculos tiene renderizacion condicional
 const TablaVehiculos = ({listaVehiculos}) => {
   useEffect(()=>{
       console.log('este es el listado de vehiculos en el componente de tabala',listaVehiculos); //lista vehiculos es un estado entonces se debe usar un useEffect
@@ -119,9 +138,9 @@ const TablaVehiculos = ({listaVehiculos}) => {
         {listaVehiculos.map((vehiculo)=>{
           return(
             <tr>
-              <td>{vehiculo.nombre}</td>
-              <td>{vehiculo.marca}</td>
-              <td>{vehiculo.modelo}</td>
+              <td>{vehiculo.name}</td>
+              <td>{vehiculo.brand}</td>
+              <td>{vehiculo.model}</td>
             </tr>
           )
         })} {/**este es un for en java para cada y voy a copiar al front lo que viene de mi base de datos simulada asi retorna un array de lo que necesito
@@ -133,11 +152,13 @@ const TablaVehiculos = ({listaVehiculos}) => {
   )
 }
 //aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
+//el formulario tambien tiene renderizacion condicional
 const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculos}) => {
   const form=useRef(null) //este es const o funcion para uso de useRef el null es para q no pponga ningun parametro al principioo
   //esta es una forma de hacer que el boton guardar vehiculo funcione controlar un input con estados
 //la (e) quiere decir q le entra un evento a la funcion forma recomendada de trabajar con formularios 
-  const submitForm=(e)=>{
+//aqui se pone el async para el await
+  const submitForm=async (e)=>{
     e.preventDefault(); //con esto se controlan los inputs y con el onSubmit en el formulkario
     const fd=new FormData(form.current) //debo hacerlo de esta manera con la funcion para que trabaje FormData con esto se evita tener un estado para cada input se puede omitir
 
@@ -147,12 +168,29 @@ const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculo
     fd.forEach((value,key)=>{ //en el forEach esta el valor y elemento 
       nuevoVehiculo[key]=value //para cada elemento que se inicializo como un objeto vacio cons nuevoVehicuolo
      })
-     setMostrarTabla(true)
-     //identificar el caso de exito y mostrar un toast de exito aqui es donde se deberia estar guardando en la base de datos
-     setVehiculos([...listaVehiculos,nuevoVehiculo])//toast de error
-     toast.success('Vehiculo agrgado con exito')
-     //aqui se deberia hacer el toast de error e identifucar el caso de error
-     //toast.error('Error creando un vehiculo')////
+
+     const options={
+  method:'POST',
+  url:'https://vast-waters-45728.herokuapp.com/vehicle/create',
+  headers:{'content-Type':'application/json'},
+  data:{name:nuevoVehiculo.name,brand:nuevoVehiculo.brand,model:nuevoVehiculo.model},
+}
+
+     await axios //aqui estoy ya haciendo parte del backend y requiero que mi funcion sea asincrona por eso el await
+        .request(options)
+        .then(function(response){
+          console.log(response.data)
+          toast.success('Vehiculo agrgado con exito')
+          //aqui se deberia hacer el toast de error e identifucar el caso de error
+        })
+        .catch(function(error){
+          console.error(error)
+          toast.error('Error creando un vehiculo')////
+        })
+
+
+     setMostrarTabla(true) //aqui lo debugueo con el fin de que no interfiera en mi consola f12 y poder hacr pruebas
+     
   };
   
   return(
@@ -165,7 +203,7 @@ const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculo
         <label className='flex flex-col' htmlFor='nombre'>
           Nombre del vehiculo
         <input 
-        name='nombre'
+        name='name'
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
          type="text"
          placeholder='Corolla'
@@ -177,7 +215,7 @@ const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculo
           Marca del Vehiculo
         <select
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
-        name='marca'
+        name='brand'
         required //funcion html para que tenga que requrir el dato si no no deja avanzar
         defaultValue={0} //con el fin de que inicialice la marca vehiculo sin valores iniciales quemadops
          >
@@ -193,7 +231,7 @@ const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculo
         <label className='flex flex-col' htmlFor='modelo'>
          Modelo del Vehiculo
         <input 
-        name='modelo'
+        name='model'
         className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
          type="number"
          min={2005}
