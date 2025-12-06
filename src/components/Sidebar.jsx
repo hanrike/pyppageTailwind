@@ -36,16 +36,13 @@ const Ruta = ({icono,ruta,nombre}) => {
 
   useEffect(()=>{
     console.log(location,ruta)
-    if(location.pathname===ruta){
+    if(location.pathname.includes(ruta)){
       setIsActive(true)
     }else{
       setIsActive(false)
     }
   },[location,ruta])
-  //useEffect para hacer prueba de consola de porque al profe no le esta funcionando
-  useEffect(()=>{
-    console.log(isActive,ruta)
-  },[isActive,ruta])
+  
   return(
     <Link to={ruta} className='w-full'>{/* Importando este link ya tengo navegabilidad en mi boton en este caso voy a daminiustracion de vehiculos */}
     < button 
