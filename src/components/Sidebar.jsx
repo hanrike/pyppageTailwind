@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link,useLocation } from 'react-router-dom';
 import ImagenLogo from '../components/ImagenLogo'
 import { Projector,ChartSpline,Users,User,ArrowDownNarrowWide } from 'lucide-react';
+import useActiveRoute from '../hooks/useActiveRoute';
 
 
 
@@ -30,18 +31,7 @@ const Sidebar = () => {
 //voy a crear un componente para los botones del sidebar 
 //le estoy pasando icono,ruta,nombre como props 
 const Ruta = ({icono,ruta,nombre}) => {
-  //todo lo que devuelven los hooks como estos son funciones o estados, en este caso este devuelve un objeto q es un estado
-  const location=useLocation()
-  const[isActive,setIsActive]=useState(false)
-
-  useEffect(()=>{
-    console.log(location,ruta)
-    if(location.pathname.includes(ruta)){
-      setIsActive(true)
-    }else{
-      setIsActive(false)
-    }
-  },[location,ruta])
+  const isActive=useActiveRoute(ruta) //de esta mnanera se implementa el uso del del useActiveRoute en el sidebar desde el hook
   
   return(
     <Link to={ruta} className='w-full'>{/* Importando este link ya tengo navegabilidad en mi boton en este caso voy a daminiustracion de vehiculos */}
