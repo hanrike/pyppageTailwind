@@ -1,6 +1,7 @@
 import React, {use, useEffect,useState,useRef} from 'react';// el useRef se utiliza para poder utilizr codigo html en javscript para utilizar codigo como referencia 
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
  //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
@@ -137,7 +138,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
       <tbody>
         {listaVehiculos.map((vehiculo)=>{
           return(
-            <tr key={vehiculo._id}> {/**forma de poner identificador unico en las filas de la tabla no es muy recomendado porque no se puede poner id en ninguna otra */}
+            <tr key={nanoid}> {/**descargando la libreria nano id ya tengo mi identificador unico sin enredos asi ya queda identificado listo para mi backend */}
               <td>{vehiculo.name}</td>
               <td>{vehiculo.brand}</td>
               <td>{vehiculo.model}</td>
