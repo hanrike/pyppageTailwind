@@ -1,7 +1,8 @@
-import React, {use, useEffect,useState,useRef} from 'react';// el useRef se utiliza para poder utilizr codigo html en javscript para utilizar codigo como referencia 
+import React, { useEffect,useState,useRef} from 'react';// el useRef se utiliza para poder utilizr codigo html en javscript para utilizar codigo como referencia 
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
+import { SquarePen,Eraser } from 'lucide-react';
  //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
@@ -52,13 +53,14 @@ const vehiculosBackend=[
 //Lo que quiero es ir a rutas pero esta vez utilizando renderizacion condicional y no a traves del router dom como ya se vio
 const Vehiculos = () => {
   const[mostrarTabla,setMostrarTabla]=useState(true);
-  const[vehiculos,setVehiculos]=useState([]); //creamos un use state vacio para poder traer el backend
+  const [vehiculos, setVehiculos] = useState(vehiculosBackend);
+  //const[vehiculos,setVehiculos]=useState([]); //creamos un use state vacio para poder traer el backend
   const[textoBoton,setTextoBoton]=useState('Crear nuevo Vehiculo')
   const[colorBoton,setColorBoton]=useState('bg-indigo-500')//quiero cambiar el color de los del botones cuando saque el formulario esto se llama clases pongo como verdadero bg-indigo
                                                            //y si no no se cumple la condicion el color cambia rojo con el estilo llamado tailwind
 
   //cuando se trae base de datos del backen se hace un useEffect vacio
-  useEffect(()=>{
+ /* useEffect(()=>{
     const ObtenerVehiculos=async()=>{
        const options={
   method:'GET',
@@ -77,7 +79,7 @@ const Vehiculos = () => {
     if (mostrarTabla){
       ObtenerVehiculos()
     }
-      },[mostrarTabla])
+      },[mostrarTabla])*/
 
 //creacion de useEffect con el fin de que el boton pueda cambiar tambien cuando se hace el evento click 
   useEffect(()=>{
@@ -132,16 +134,26 @@ const TablaVehiculos = ({listaVehiculos}) => {
           <th>Nombre del Vehiculo</th>
           <th>Marca del Vehiculo</th>
           <th>Modelo del Vehiculo</th>
-          
+          <th>Acciones</th> {/**creamos el header nuevo con el fin de poder editar el formulario */}    
         </tr>
       </thead>
       <tbody>
         {listaVehiculos.map((vehiculo)=>{
           return(
             <tr key={nanoid}> {/**descargando la libreria nano id ya tengo mi identificador unico sin enredos asi ya queda identificado listo para mi backend */}
-              <td>{vehiculo.name}</td>
-              <td>{vehiculo.brand}</td>
-              <td>{vehiculo.model}</td>
+              <td>{vehiculo.nombre}</td>{/**cuando este funcionando el backen se debe cambiar por .name,.brand,.model */}
+              <td>{vehiculo.marca}</td>
+              <td>{vehiculo.modelo}</td>
+              <td>
+                <div className='flex w-full justify-around'>
+                  <button type="button">
+                  <SquarePen className="text-yellow-700 hover:text-yellow-500 w-5 h-5" />
+                  </button>
+                  <button type="button">
+                  <Eraser className="text-red-700 hover:text-red-500 w-5 h-5" />
+                  </button>
+                </div>
+              </td>
             </tr>
           )
         })} {/**este es un for en java para cada y voy a copiar al front lo que viene de mi base de datos simulada asi retorna un array de lo que necesito
