@@ -90,7 +90,7 @@ const Vehiculos = () => {
   },[mostrarTabla]);
   return(
     <div className='flex h-full w-full flex-col items-center justify-start p-8'>
-      <div className='flex flex-col'>  
+      <div className='flex flex-col w-full'>  
       <h2 className='text-3xl font-extrabold text-gray-900'>
         Pagina de administracion de vehiculos</h2>
       {/**con el evento onClick logro que cuando hago click en el boton me muestre la funcion TablaVehiculos o la funcion FormularioCreacionVehiculos */}
@@ -123,9 +123,9 @@ const TablaVehiculos = ({listaVehiculos}) => {
   return(
     //vamos a crear la tabla que muestra los vehiculos
     //centro el titulo todos los vehiculos y le doy el estilo tailwind h2
-    <div className='flex flex-col items-center justify-center' >
+    <div className='flex flex-col items-center justify-center w-full' >
       <h2 className='text-3xl font-extrabold text-gray-900'>Todos los Vehiculos</h2>
-    <table>
+    <table className='tabla'> {/**para hacer la tabla no es recomendable usar tailwind entonces en este caso voy a realizar la tabla con css puro */}
       <thead>
         <tr>
           <th>Nombre del Vehiculo</th>

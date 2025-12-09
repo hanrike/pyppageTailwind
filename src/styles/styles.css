@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+
+.tabla{
+    width: 100%;
+    margin:10px
+}
+
+/* voy a trabajar la tabla de vehiculo con estilos css puro no se recomienda tailwind porque es complicado* */
+.tabla td,
+.tabla th{
+  padding: 8px;   
+  border: 1px solid;
+}
+
+.tabla th{
+    background-color: #04aa46;
+    color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+}
+
+/* voy aplicar seudo clase el even es para aplicar estilos a las filas de la table unicamente en los pares de la fila* */
+.tabla tr:nth-child(even){
+    background-color: rgb(155, 155, 224);
+    cursor:pointer
+}
