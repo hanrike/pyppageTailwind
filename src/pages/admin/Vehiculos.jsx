@@ -137,7 +137,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
       <tbody>
         {listaVehiculos.map((vehiculo)=>{
           return(
-            <tr>
+            <tr key={vehiculo._id}> {/**forma de poner identificador unico en las filas de la tabla no es muy recomendado porque no se puede poner id en ninguna otra */}
               <td>{vehiculo.name}</td>
               <td>{vehiculo.brand}</td>
               <td>{vehiculo.model}</td>
