@@ -140,21 +140,7 @@ const TablaVehiculos = ({listaVehiculos}) => {
       <tbody>
         {listaVehiculos.map((vehiculo)=>{
           return(
-            <tr key={nanoid}> {/**descargando la libreria nano id ya tengo mi identificador unico sin enredos asi ya queda identificado listo para mi backend */}
-              <td>{vehiculo.nombre}</td>{/**cuando este funcionando el backen se debe cambiar por .name,.brand,.model */}
-              <td>{vehiculo.marca}</td>
-              <td>{vehiculo.modelo}</td>
-              <td>
-                <div className='flex w-full justify-around'>
-                  <button type="button">
-                  <SquarePen className="text-yellow-700 hover:text-yellow-500 w-5 h-5" />
-                  </button>
-                  <button type="button">
-                  <Eraser className="text-red-700 hover:text-red-500 w-5 h-5" />
-                  </button>
-                </div>
-              </td>
-            </tr>
+            <FilaVehiculo key={nanoid} vehiculo={vehiculo}/>
           )
         })} {/**este es un for en java para cada y voy a copiar al front lo que viene de mi base de datos simulada asi retorna un array de lo que necesito
          * entro un array de tipo json y el meduelve un array de html esta funcion se llama .map
@@ -164,6 +150,28 @@ const TablaVehiculos = ({listaVehiculos}) => {
     </div>
   )
 }
+//lo mejor para que no se haga muy complejo el formulario paraeditar y borrar creo este componente
+const FilaVehiculo=({vehiculo})=>{
+  const[edit,setEdit]=useState(false)
+  return(
+    <tr> {/**descargando la libreria nano id ya tengo mi identificador unico sin enredos asi ya queda identificado listo para mi backend */}
+      <td>{vehiculo.nombre}</td>{/**cuando este funcionando el backen se debe cambiar por .name,.brand,.model */}
+      <td>{vehiculo.marca}</td>
+      <td>{vehiculo.modelo}</td>
+      <td>
+      <div className='flex w-full justify-around'>
+        <button onAuxClick={()=>setEdit(!edit)} type="button"> {/**aqui queremos que se setie el estado en ele estado anterior  */}
+          <SquarePen className="text-yellow-700 hover:text-yellow-500 w-5 h-5" />
+        </button>
+        <button type="button">
+          <Eraser className="text-red-700 hover:text-red-500 w-5 h-5" />
+        </button>
+        </div>
+        </td>
+         </tr>
+  )
+}
+
 //aqui llamo al prop directamenet en el formulario dentro de los parentesisis poniendo la funcionParaMostrarTabla
 //el formulario tambien tiene renderizacion condicional
 const FormularioCreacionVehiculos = ({setMostrarTabla,listaVehiculos,setVehiculos}) => {
