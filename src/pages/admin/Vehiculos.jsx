@@ -2,7 +2,7 @@ import React, { useEffect,useState,useRef} from 'react';// el useRef se utiliza 
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
-import { SquarePen,Eraser } from 'lucide-react';
+import { SquarePen,Eraser,CheckLine } from 'lucide-react';
  //importo libreria para mensajes y nitificaciones al presioanr un boton o realizar una accion
 //importacion de la funcion useEFFect con el fin de que el codigo pueda estar pendiente de lo que el ususario va a realizar primero 
 //no como en python que todo es secuencial aqui se puede ejecutar de primero cualquier accion
@@ -155,14 +155,33 @@ const FilaVehiculo=({vehiculo})=>{
   const[edit,setEdit]=useState(false)
   return(
     <tr> {/**descargando la libreria nano id ya tengo mi identificador unico sin enredos asi ya queda identificado listo para mi backend */}
-      <td>{vehiculo.nombre}</td>{/**cuando este funcionando el backen se debe cambiar por .name,.brand,.model */}
+    {/**Ahora voy a utilizar una renderizacion condicional */}
+    {edit ?(
+    <>
+      <td><input type='text' defaultValue={vehiculo.name}/></td>
+      <td><input type='text' defaultValue={vehiculo.brand}/></td>
+      <td><input type='text' defaultValue={vehiculo.model}/></td>
+      </>
+    
+     ) :(
+    <>  <td>{vehiculo.nombre}</td>{/**cuando este funcionando el backen se debe cambiar por .name,.brand,.model */}
       <td>{vehiculo.marca}</td>
       <td>{vehiculo.modelo}</td>
+      </>
+      )}
       <td>
       <div className='flex w-full justify-around'>
-        <button onAuxClick={()=>setEdit(!edit)} type="button"> {/**aqui queremos que se setie el estado en ele estado anterior  */}
+        {/**Aqui voy a realizar renderizacion para cambiar el lapiz por un check */}
+        {edit ?(
+          <button onClick={()=>setEdit(!edit)} type="button">  {/**aqui queda la renderizacion es lapiz pero si quiero editar se convierte en chulito */}
+            <CheckLine className="text-green-700 hover:text-green-500"/>
+          </button>
+        ):(
+          <button onClick={()=>setEdit(!edit)} type="button"> {/**aqui queremos que se setie el estado en el estado anterior  */}
           <SquarePen className="text-yellow-700 hover:text-yellow-500 w-5 h-5" />
         </button>
+        )}
+        
         <button type="button">
           <Eraser className="text-red-700 hover:text-red-500 w-5 h-5" />
         </button>
