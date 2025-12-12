@@ -120,15 +120,33 @@ const Vehiculos = () => {
 }
 //aqui necesitamos traer la base de dsatos de la tabla vehiculos leer esa informacion la TablaVehiculos tiene renderizacion condicional
 const TablaVehiculos = ({listaVehiculos}) => {
+  //Referencia del formulario
+  const form=useRef(null)
   useEffect(()=>{
       console.log('este es el listado de vehiculos en el componente de tabala',listaVehiculos); //lista vehiculos es un estado entonces se debe usar un useEffect
     },[listaVehiculos])
+
+    const submitEdit=(e)=>{
+      e.preventDefault()
+    const fd=new FormData(form.current)
+      console.log(e)
+
+     //implementacion jarol para edicion de vehiculos   
+    const edicionVehiculo={} 
+      fd.forEach((value,key)=>{ 
+      edicionVehiculo[key]=value 
+      })
+
+      console.log('edición lista', edicionVehiculo);
+  // aquí luego harás axios.put/patch
+};
   return(
     //vamos a crear la tabla que muestra los vehiculos
     //centro el titulo todos los vehiculos y le doy el estilo tailwind h2
     <div className='flex flex-col items-center justify-center w-full' >
       <h2 className='text-3xl font-extrabold text-gray-900'>Todos los Vehiculos</h2>
-    <table className='tabla'> {/**para hacer la tabla no es recomendable usar tailwind entonces en este caso voy a realizar la tabla con css puro */}
+    <form ref={form} onSubmit={submitEdit} className='w-full'>{/**La tabla se debe meter dentro de un form  */} 
+      <table className='tabla'> {/**para hacer la tabla no es recomendable usar tailwind entonces en este caso voy a realizar la tabla con css puro */}
       <thead>
         <tr>
           <th>Nombre del Vehiculo</th>
@@ -146,7 +164,8 @@ const TablaVehiculos = ({listaVehiculos}) => {
          * entro un array de tipo json y el meduelve un array de html esta funcion se llama .map
          */} 
       </tbody>
-    </table>
+      </table>
+    </form>
     </div>
   )
 }
@@ -158,9 +177,9 @@ const FilaVehiculo=({vehiculo})=>{
     {/**Ahora voy a utilizar una renderizacion condicional */}
     {edit ?(
     <>
-      <td><input type='text' defaultValue={vehiculo.name}/></td>
-      <td><input type='text' defaultValue={vehiculo.brand}/></td>
-      <td><input type='text' defaultValue={vehiculo.model}/></td>
+      <td><input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'  type='text' defaultValue={vehiculo.name}/></td>
+      <td><input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type='text' defaultValue={vehiculo.brand}/></td>
+      <td><input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type='text' defaultValue={vehiculo.model}/></td>
       </>
     
      ) :(
